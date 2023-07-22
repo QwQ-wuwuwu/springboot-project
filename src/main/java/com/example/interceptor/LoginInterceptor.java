@@ -33,6 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 if (!shouldContinue) {//如果是其他路劲，进行token解密
                     String token = request.getHeader("token");
                     if (token == null) {
+                        //response.sendRedirect("/api/login");//重定向到登录界面
                         throw new XException(Code.LOGIN_ERROR,"未登录");
                     }
                     DecodedJWT decodedJWT = jwtComponent.decode(token);

@@ -29,8 +29,8 @@ public class User {
     private String number;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//仅能从该属性到json序列化，不能反过来
     private String password;
-    private Integer total;
-    private Integer count;
+    private Integer total;//导师指导学生的数量
+    private Integer count;//目前选择导师的学生数量
     @JsonIgnore//序列化是直接忽略
     private int role;
     @JsonSerialize(using = ToStringSerializer.class)

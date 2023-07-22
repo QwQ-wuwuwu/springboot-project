@@ -3,6 +3,7 @@ package com.example.aop;
 import com.example.entity.StartTime;
 import com.example.exception.XException;
 import com.example.vo.Code;
+import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-@Aspect//使用aop对功能进行控制
+@Aspect//使用aop对学生功能进行控制
 public class StudentAspect {
     @Autowired
     private StartTime time;

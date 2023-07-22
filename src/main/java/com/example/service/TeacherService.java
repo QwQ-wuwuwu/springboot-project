@@ -1,7 +1,9 @@
 package com.example.service;
 
 import com.example.entity.User;
+import com.example.exception.XException;
 import com.example.repository.UserRepository;
+import com.example.vo.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,16 @@ public class TeacherService {
     }
     //查找已选某个老师的所有学生
     public List<User> listSelect(String name) {
+        List<User> teachers = userRepository.listTeacher();
+        boolean flag = false;
+        User user = userRepository.findByName(name);
+        for (User t : teachers) {
+            if (user == t) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) throw new XException(Code.FORBIDDEN,"该用户不属于导师");
         return userRepository.listSelect(name);
     }
     //查找已配对的老师和同学

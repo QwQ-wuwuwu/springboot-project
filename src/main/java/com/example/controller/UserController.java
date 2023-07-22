@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import com.example.entity.User;
+import com.example.exception.XException;
 import com.example.service.UserService;
+import com.example.vo.Code;
 import com.example.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +16,43 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    //列出所有老师
     @GetMapping("/teachers")
-    public ResultVo listTeacher() {
-        List<User> users = userService.listTeacher();
+    public ResultVo listTeacher(@RequestAttribute("uid") long uid,@RequestAttribute("role") int role) {
+        List<User> users = userService.listTeacher(uid,role);
         if (users.size() == 0) {
             return ResultVo.builder()
                     .code(666)
-                    .message("目前老师未加入")
+                    .message("操作失败")
                     .data(null)
                     .build();
         }
         return ResultVo.success(666,Map.of("teachers",users));
     }
-    @GetMapping("/select")
-    public ResultVo getInfo(@RequestAttribute("uid") long uid, @RequestHeader("role") int role) {
-        System.out.println(uid);
-        System.out.println(role);
-        return ResultVo.success(666,null);
+    //挑选老师
+    @GetMapping("/select/{tid}")
+    public ResultVo getInfo(@RequestAttribute("uid") long uid, @RequestAttribute("role") int role, @PathVariable long tid) {
+        if (role == User.ROLE_TEACHER || role == User.ROLE_ADMIN) {
+            throw new XException(Code.FORBIDDEN,"只有学生可以选择导师");
+        }
+        if (!userService.selectTeacher(uid,tid)) {
+            throw new XException(Code.BAD_REQUEST,"操作失败（老师或学生不存在）");
+        }
+        return ResultVo.builder()
+                .code(666)
+                .message("选择成功")
+                .build();
+    }
+    //修改密码
+    @PutMapping("/updateP")
+    public ResultVo updatePassword(@RequestParam("password") String password,@RequestParam("name") String name,@RequestParam("newPassword") String newPassword) {
+        boolean flag = userService.updatePassword(name,password,newPassword);
+        if (!flag) {
+            return ResultVo.error(Code.BAD_REQUEST,"更新失败，请重试");
+        }
+        return ResultVo.builder()
+                .code(666)
+                .message("更新成功，请妥善保存密码")
+                .build();
     }
 }

@@ -52,7 +52,7 @@ public class AdminService {
         }
         return true;
     }
-    //重置密码
+    //重置所有密码
     @Transactional
     public boolean reSetPassword(String newPassword) {
         String temp = passwordEncoder.encode(newPassword);

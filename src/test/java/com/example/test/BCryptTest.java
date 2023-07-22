@@ -63,10 +63,10 @@ public class BCryptTest {
     @Test
     public void test_06() {
         User user = User.builder()
-                .name("老师一")
-                .password(passwordEncoder.encode("老师一"))
-                .role(User.ROLE_TEACHER)
-                .number("老师一")
+                .name("student1")
+                .password(passwordEncoder.encode("student1"))
+                .role(User.ROLE_STUDENT)
+                .number("student1")
                 .insertTime(LocalDateTime.now())
                 .build();
         userRepository.save(user);
@@ -101,14 +101,9 @@ public class BCryptTest {
     }
     @Test
     public void test_09() {
-        LocalDateTime start = LocalDateTime.of(2023,8,15,12,00 );
-        LocalDateTime end = LocalDateTime.of(2023,9,15,12,00);
-        adminService.setTime(start,end);
-        List<User> list = userService.listTeacher();
+        /*List<User> list = userService.listTeacher(1132275642500456448L,0);
         for (User user : list) {
-            if (user != null) {
-                System.out.println(user);
-            }
-        }
+            System.out.println(user);
+        }*/
     }
 }

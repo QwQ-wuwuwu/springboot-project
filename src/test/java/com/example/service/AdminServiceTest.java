@@ -19,6 +19,5 @@ class AdminServiceTest {
     private AdminService adminService;
     @Test
     public void teat_01() {
-
     }
 }
