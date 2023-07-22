@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: 'jdbc:mysql://localhost:3306/mybatis?
+    createDataBaseIfNotExist=true
+    &serverTimezone=Asia/Shanghai'
+    username: root
+    password: 532129
+  sql:
+    init:
+      mode: always
+  jackson:
+    default-property-inclusion: non_null
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    sql: debug
+    com:
+      example: warn
+  pattern:
+    console: '%-5level-%'
+my:
+  secretKey: 2Q1WER5BAQ79PLO0Q
