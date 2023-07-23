@@ -20,7 +20,7 @@ public class TeacherController {
     //查找没有选导师的同学列表
     @GetMapping("/students1")
     public ResultVo listUnSelect(@RequestAttribute("role") int role) {
-        if (role == User.ROLE_STUDENT) {
+        if (role == User.ROLE_STUDENT || role == User.ROLE_ADMIN) {
             throw new XException(Code.FORBIDDEN,"无权限");
         }
         else if (teacherService.listUnselect().size() == 0) {
@@ -37,7 +37,7 @@ public class TeacherController {
     //查找已选某个老师的所有学生
     @GetMapping("/students2")
     public ResultVo listSelect(@RequestParam("name") String name,@RequestAttribute("role") int role) {
-        if (role == User.ROLE_STUDENT) {
+        if (role == User.ROLE_STUDENT || role == User.ROLE_ADMIN) {
             throw new XException(Code.UNAUTHORIZED,"无权限");
         }
         else if (teacherService.listSelect(name) == null) {
@@ -55,7 +55,7 @@ public class TeacherController {
     @GetMapping("/students3")
     public ResultVo listSelect(@RequestAttribute("role") int role) {
         List<User> lists = teacherService.listStudentAndTeacher();
-        if (role == User.ROLE_STUDENT) {
+        if (role == User.ROLE_STUDENT || role == User.ROLE_ADMIN) {
             throw new XException(400,"无权限");
         }
         else if (lists == null) {
