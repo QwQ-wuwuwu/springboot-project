@@ -9,7 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.List;
 
-@Component
+@Component//对教师权限进行验证
 public class TeacherInterceptor implements HandlerInterceptor {
     private final List<String> includes = List.of("/api/teacher");
     @Override

@@ -16,10 +16,12 @@ spring:
 
 logging:
   level:
-    sql: debug
+    sql: debug #控制台输出sql拼接语句
+    root: warn #控制台输出
     com:
-      example: warn
+      example: debug
   pattern:
-    console: '%-5level-%'
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"
 my:
   secretKey: 2Q1WER5BAQ79PLO0Q
+

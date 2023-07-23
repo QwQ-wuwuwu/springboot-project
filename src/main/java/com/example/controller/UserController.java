@@ -20,7 +20,7 @@ public class UserController {
     @GetMapping("/teachers")
     public ResultVo listTeacher(@RequestAttribute("uid") long uid,@RequestAttribute("role") int role) {
         List<User> users = userService.listTeacher(uid,role);
-        if (users.size() == 0) {
+        if (users == null) {
             return ResultVo.builder()
                     .code(666)
                     .message("操作失败")
@@ -29,14 +29,17 @@ public class UserController {
         }
         return ResultVo.success(666,Map.of("teachers",users));
     }
-    //挑选老师
+    //挑选老师，只有学生可以挑选
     @GetMapping("/select/{tid}")
     public ResultVo getInfo(@RequestAttribute("uid") long uid, @RequestAttribute("role") int role, @PathVariable long tid) {
         if (role == User.ROLE_TEACHER || role == User.ROLE_ADMIN) {
             throw new XException(Code.FORBIDDEN,"只有学生可以选择导师");
         }
         if (!userService.selectTeacher(uid,tid)) {
-            throw new XException(Code.BAD_REQUEST,"操作失败（老师或学生不存在）");
+            return ResultVo.builder()
+                    .code(500)
+                    .message("操作失败（老师或学生不存在）")
+                    .build();
         }
         return ResultVo.builder()
                 .code(666)
@@ -44,7 +47,7 @@ public class UserController {
                 .build();
     }
     //修改密码
-    @PutMapping("/updateP")
+    @PutMapping("/password")
     public ResultVo updatePassword(@RequestParam("password") String password,@RequestParam("name") String name,@RequestParam("newPassword") String newPassword) {
         boolean flag = userService.updatePassword(name,password,newPassword);
         if (!flag) {

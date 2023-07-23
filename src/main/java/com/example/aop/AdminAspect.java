@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-@Component
-@Aspect//通过aop对管理员权限进行控制，只是目前还没前端页面进行测试^.^不知行不行
+//@Component
+//@Aspect//通过aop对管理员权限进行控制，只是目前还没前端页面进行测试^.^不知行不行
+//由于已经写了拦截器，这里的功能是多余的哈哈哈
 public class AdminAspect {
-    @Around("execution(* com.example.service.AdminService.*(..))")
+   /* @Around("execution(* com.example.service.AdminService.*(..))")
     public Object checkRole(ProceedingJoinPoint joinPoint) {
         // 获取HttpServletRequest对象
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -26,5 +27,5 @@ public class AdminAspect {
         } catch (Throwable e) {
             throw new XException(Code.BAD_REQUEST,e.getMessage() + "请求异常");
         }
-    }
+    }*/
 }

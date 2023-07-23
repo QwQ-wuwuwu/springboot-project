@@ -24,7 +24,7 @@ public class AdminController {
                 .build();
     }
     //添加学生名单
-    @PostMapping("/addS")
+    @PostMapping("/students")
     public ResultVo addListStudent(@RequestBody List<User> students) {
         if (!adminService.addListStudent(students)) {
             return ResultVo.builder()
@@ -35,7 +35,7 @@ public class AdminController {
         return ResultVo.success(null,"添加成功");
     }
     //添加老师名单
-    @PostMapping("/addT")
+    @PostMapping("/teachers")
     public ResultVo addListTeacher(@RequestBody List<User> teachers) {
         if (!adminService.addListTeacher(teachers)) {
             return ResultVo.builder()
@@ -46,8 +46,8 @@ public class AdminController {
         return ResultVo.success(null,"添加成功");
     }
     //重置密码
-    @PutMapping("/{newPassword}")
-    public ResultVo reSetPassword(@PathVariable String newPassword) {
+    @PutMapping("/password")
+    public ResultVo reSetPassword(@RequestParam String newPassword) {
         if (!adminService.reSetPassword(newPassword)) {
             return ResultVo.error(Code.UNAUTHORIZED,"重置失败");
         }

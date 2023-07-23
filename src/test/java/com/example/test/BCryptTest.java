@@ -31,9 +31,10 @@ public class BCryptTest {
     public void test_01() {
         String pwd = "123456";
         String ans = passwordEncoder.encode(pwd);
-        System.out.println(ans);
-        System.out.println(passwordEncoder.matches("159357",ans));
+        //System.out.println(ans);
+        //System.out.println(passwordEncoder.matches("159357",ans));
         //$2a$10$8W4c4swsC1/HPKBh6HeziuVNl4pZ29NgE9dvwDLy6AIXFNHAtO7t2
+        log.debug("{}",ans);
     }
     @Autowired
     private UserService userService;
@@ -79,7 +80,7 @@ public class BCryptTest {
     private TeacherService teacherService;
     @Test
     public void test_05() {
-        List<User> list = teacherService.listSelect("BO");
+        List<User> list = teacherService.listSelect(123156516621564L);
         for (User user : list) {
             System.out.println(user);
         }

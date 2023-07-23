@@ -17,8 +17,8 @@ public interface UserRepository extends CrudRepository<User,Integer> {
     User findById(@Param("id") long id);
     @Query("select * from user u where u.role=0 and u.teacher_id is null")
     List<User> listUnSelect();
-    @Query("select * from user u where u.role=0 and u.teacher_name=:teacherName;")
-    List<User> listSelect(@Param("teacherName") String teacherName);
+    @Query("select * from user u where u.role=0 and u.teacher_id=:tid;")
+    List<User> listSelect(@Param("tid") long tid);
     @Query("select u.id, u.name,u.total,u.count from user u where u.role=1")
     List<User> listTeacher();
     @Modifying

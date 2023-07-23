@@ -9,7 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.List;
 
-@Component
+@Component//对管理员权限进行验证
 public class AdminInterceptor implements HandlerInterceptor {
     private final List<String> includes = List.of("/api/admin");
     @Override

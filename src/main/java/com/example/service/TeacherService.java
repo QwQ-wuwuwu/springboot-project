@@ -22,10 +22,10 @@ public class TeacherService {
         return userRepository.listUnSelect();
     }
     //查找已选某个老师的所有学生
-    public List<User> listSelect(String name) {
+    public List<User> listSelect(long tid) {
         List<User> teachers = userRepository.listTeacher();
         boolean flag = false;
-        User user = userRepository.findByName(name);
+        User user = userRepository.findById(tid);
         for (User t : teachers) {
             if (user == t) {
                 flag = true;
@@ -33,7 +33,7 @@ public class TeacherService {
             }
         }
         if (!flag) throw new XException(Code.FORBIDDEN,"该用户不属于导师");
-        return userRepository.listSelect(name);
+        return userRepository.listSelect(tid);
     }
     //查找已配对的老师和同学
     public List<User> listStudentAndTeacher() {

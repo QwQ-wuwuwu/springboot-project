@@ -32,3 +32,11 @@ springboot框架下的spring aop
 ####
 最后是时间处理也采用了aop统一管理，开启aop后，管理员首先就要设置开始时间和结束时间，
 在这段时间之外，学生端的所有功能都是被禁止的
+## 修改
+1. 对于controller层来说，完全可以不用抛异常，而是直接返回ResultVo的视图，如果有各种异常，完全可以在service层进行控制
+2. 对于controller层的权限验证来说，由于拦截器的存在，它就是多余的，根本就不用在controller层再次进行权限验证
+3. 对于使用了@Slf4j注解没有输出的问题，注意application.yml文件中logging:
+   level:root:warn
+4. 对登录成功后的视图输出修改了一下，更直观的看出各个用户的状况
+5. 注意@RequestParam和@PathVariable的使用区别
+6. 悲观锁来说还是有很大的效率问题，可以改善
