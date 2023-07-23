@@ -40,3 +40,4 @@ springboot框架下的spring aop
 4. 对登录成功后的视图输出修改了一下，更直观的看出各个用户的状况
 5. 注意@RequestParam和@PathVariable的使用区别
 6. 悲观锁来说还是有很大的效率问题，可以改善
+7. 对于请求命名已经全部修改为rest风格
